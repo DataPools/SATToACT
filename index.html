@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SAT to ACT Score Conversion</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+<style>
+     body {
+	padding-top: 0px; 
+	padding-bottom: 45px;
+      }
+    .form-signin {
+    	padding: 0px;
+        max-width: 400px;
+     }
+    .explanation {
+        text-align: left;
+	font-size: 15px;
+	color: #343a40;
+	padding: 5px 15px 15px 15px;
+     }
+     h1 {
+	font-size: 50px;
+	margin-bottom:10px;
+	color: purple;
+     }
+     .footer {
+	background-color: #dcdcdc;
+	height: 7vh;
+	position: fixed;
+	bottom: 0px;
+	margin: 0 auto;
+	padding-top: 2.5vh;
+	min-width: 100%;
+	font-size: 13px;   
+	
+     }
+     .footer a {
+	color: #343a40; 
+     }
+    </style>
+<script>
+      var isOnSAT = true;
+      function validateInput() {
+        var input = document.getElementById("inputScore").value;
+        if(input.length > 0) {
+          if(isOnSAT) {
+            if(input >= 400 && input<=1600) {
+              document.getElementById("generatedScore").value = "ACT: "+convertSATToACT(input);
+              document.getElementById("generatedScore").style.color = '';
+            }
+            else {
+              document.getElementById("generatedScore").value = "Invalid score";
+              document.getElementById("generatedScore").style.color = 'red';
+            }
+          }
+          else {
+            //This means it is for ACT
+            if(input >= 1 && input<=36) {
+              document.getElementById("generatedScore").value = "SAT: "+convertACTToSAT(input);
+              document.getElementById("generatedScore").style.color = '';
+            }
+            else {
+              document.getElementById("generatedScore").value = "Invalid score";
+              document.getElementById("generatedScore").style.color = 'red';
+            }
+          }
+      }
+      }
+      function convertSATToACT(score) {
+        var result = (score*36)/1600;
+        return Math.round(result);
+      }
+      function convertACTToSAT(score) {
+        var result = (score*1600)/36;
+        return Math.round(result);
+      }
+      function act() {
+        document.getElementById("inputScore").placeholder = "ACT Score (1-36)";
+        document.getElementById("satbutton").className = document.getElementById("satbutton").className.replace(" active", "");
+        document.getElementById("actbutton").className += " active";
+        isOnSAT = false;
+        validateInput();
+      }
+      function sat() {
+        document.getElementById("inputScore").placeholder = "SAT Score (400-1600)";
+        document.getElementById("actbutton").className = document.getElementById("actbutton").className.replace(" active", "");
+        document.getElementById("satbutton").className += " active";
+        isOnSAT = true;
+        validateInput();
+      }
+    </script>
+  </head>
+
+  <body id="body" class="text-center">
+    <form class="form-signin">
+      <h1 class="text-dark">SAT to ACT</h1>
+      <h1 class="h5 mb-3 font-weight-normal">Convert scores between tests.</h1>
+      <input type="text" id="inputScore" class="form-control" placeholder="SAT Score (400-1600)" oninput="validateInput()" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="text" id="generatedScore" class="form-control" placeholder="Converted score appears here" readonly>
+      <button type="button" id="satbutton" style="margin-top: 10px" class="btn btn-outline-primary active" onclick="sat()">SAT</button>
+       <button type="button" id="actbutton" style="margin-top: 10px" class="btn btn-outline-danger" onclick="act()">ACT</button>
+	<div class="explanation">
+	<h6>What is this?</h6>
+	<p>If you have an SAT test score and you want to see its equivelant ACT score or vice-versa, you can use this to convert it.</p>
+	<p>Just pick the type of test that you want to convert from with the buttons above. </p>
+  <p>To see the full range of scores: <a href="https://collegereadiness.collegeboard.org/pdf/guide-2018-act-sat-concordance.pdf">SAT/ACT Concordance Tables</a>.</p>
+</div>
+    </form>
+<footer class="footer"><a href="https://github.com/DataPools/typotrack">A Project by DataPools</a></footer>
+  </body>
+</html>
